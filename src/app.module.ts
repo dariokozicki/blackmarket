@@ -10,7 +10,6 @@ import { ProductsModule } from '@products/products.module';
 import { CategoryProductsModule } from './category_products/category_products.module';
 import { CategoryProducts } from './category_products/models/classes/category_products.entity';
 
-/* istanbul ignore file */
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
