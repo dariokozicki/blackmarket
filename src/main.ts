@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-/* istanbul ignore file */
 
 declare const module: any;
 
