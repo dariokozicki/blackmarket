@@ -3,17 +3,22 @@
 
 name: 'Rootcov'
 on:
-    pull_request:
-        branches:
-            - master
-            - main
+  pull_request:
+    branches:
+      - master
+      - main
+      - develop
+      - feature/**
+      - release/**
+      - hotfix/**
+      - task/**
 jobs:
-    coverage:
-        permissions:
-            checks: write
-            pull-requests: write
-            contents: write
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - uses: ArtiomTr/jest-coverage-report-action@v2
+  coverage:
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ArtiomTr/jest-coverage-report-action@v2
