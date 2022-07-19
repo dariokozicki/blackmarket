@@ -1,4 +1,9 @@
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig');
+
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
+  preset: 'ts-jest',
   coverageThreshold: {
     global: {
       lines: 90,
@@ -10,7 +15,15 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s', '!**/main.ts', '!**/*.module.ts'],
+  collectCoverageFrom: [
+    '**/*.(t|j)s',
+    '!**/main.ts',
+    '!**/*.module.ts',
+    '!**/*.entity.ts',
+  ],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/../',
+  }),
 };

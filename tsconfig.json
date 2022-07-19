@@ -20,7 +20,11 @@
     "paths": {
       "@categories/*": ["src/categories/*"],
       "@products/*": ["src/products/*"],
-      "@base/*": ["src/base/*"]
+      "@base/*": ["src/base/*"],
+      "@category_products/*": ["src/category_products/*"],
+      "@users/*": ["src/users/*"],
+      "@roles/*": ["src/roles/*"],
+      "@/*": ["src/*"]
     }
   }
 }

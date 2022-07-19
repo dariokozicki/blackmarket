@@ -1,4 +1,4 @@
-import { BaseEntity } from '@base/models/classes/BaseEntity';
+import { BaseEntity } from '@base/models/classes/BaseEntity.entity';
 import { Role } from 'src/roles/models/enums/role.enum';
 import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
 

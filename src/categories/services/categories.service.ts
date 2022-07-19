@@ -10,10 +10,6 @@ export class CategoriesService {
     private categoriesRepository: Repository<Category>,
   ) {}
 
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   findAll(): Promise<Category[]> {
     return this.categoriesRepository.find({
       take: 20,

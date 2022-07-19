@@ -1,4 +1,4 @@
-import { BaseEntity } from '@base/models/classes/BaseEntity';
+import { BaseEntity } from '@base/models/classes/BaseEntity.entity';
 import { Category } from '@categories/models/classes/category.entity';
 import { Product } from '@products/models/classes/product.entity';
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';

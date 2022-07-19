@@ -1,5 +1,5 @@
-import { BaseEntity } from '@base/models/classes/BaseEntity';
-import { CategoryProducts } from 'src/category_products/models/classes/category_products.entity';
+import { BaseEntity } from '@base/models/classes/BaseEntity.entity';
+import { CategoryProducts } from '@category_products/models/classes/category_products.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity({ name: 'categories' })
