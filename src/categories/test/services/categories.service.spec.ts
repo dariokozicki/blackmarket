@@ -1,9 +1,7 @@
+import { Category } from '@categories/models/classes/category.entity';
+import { CategoriesService } from '@categories/services/categories.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Category } from '@categories/models/classes/Category.entity';
-import { CategoriesService } from '@categories/services/Categories.service';
-import * as sinon from 'sinon';
-import { Repository } from 'typeorm';
 
 describe('Categories Service', () => {
   let service: CategoriesService;
