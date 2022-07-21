@@ -20,6 +20,8 @@ module.exports = {
     '!**/main.ts',
     '!**/*.module.ts',
     '!**/*.entity.ts',
+    '!**/*.guard.ts',
+    '!**/*.decorator.ts',
   ],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',

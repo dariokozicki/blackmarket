@@ -9,6 +9,8 @@ import { Product } from '@products/models/classes/product.entity';
 import { ProductsModule } from '@products/products.module';
 import { CategoryProductsModule } from './category_products/category_products.module';
 import { CategoryProducts } from './category_products/models/classes/category_products.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from '@roles/roles.guard';
 
 @Module({
   imports: [
@@ -32,6 +34,12 @@ import { CategoryProducts } from './category_products/models/classes/category_pr
     CategoryProductsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}
