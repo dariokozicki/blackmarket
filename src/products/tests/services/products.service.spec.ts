@@ -45,8 +45,16 @@ describe('Products Service', () => {
       page: 1,
       size: 30,
       categories: [categoryId],
-      name: 'Lapi',
+      search: 'Lapi',
     });
     expect(theProd.name).toBe(prod.name);
+
+    find.mockReturnValueOnce(Promise.resolve([prod]));
+    const [secondProd] = await service.findAll({
+      page: 1,
+      size: 30,
+      categories: [categoryId],
+    });
+    expect(secondProd.name).toBe(prod.name);
   });
 });
