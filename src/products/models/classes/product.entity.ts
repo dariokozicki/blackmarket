@@ -24,9 +24,6 @@ export class Product extends BaseEntity {
   @Column({ type: 'integer' })
   stock: number;
 
-  // @ManyToMany(() => Category) ANOTHER ENTITY INSTEAD OF MANY TO MANY
-  // @JoinTable({ name: 'category_products' })
-  // categories: Category[];
   @OneToMany(
     () => CategoryProducts,
     (categoryProducts) => categoryProducts.product,
