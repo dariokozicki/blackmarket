@@ -4,11 +4,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Category } from '@categories/models/classes/category.entity';
-import { Product } from '@products/models/classes/product.entity';
+import { Category } from '@category/category.entity';
+import { Product } from '@product/product.entity';
 import { ProductsModule } from '@products/products.module';
-import { CategoryProductsModule } from './category_products/category_products.module';
-import { CategoryProducts } from './category_products/models/classes/category_products.entity';
+import { CategoryProductsModule } from '@category_products/category_products.module';
+import { CategoryProducts } from '@category_products/mc/category_products.entity';
 
 @Module({
   imports: [
