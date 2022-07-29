@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsFilter } from '@products/models/dtos/products.filter';
-import { ILike, In, Repository } from 'typeorm';
+import { DeleteResult, ILike, In, Repository } from 'typeorm';
 import { Product } from '@product/product.entity';
 
 @Injectable()
@@ -38,5 +38,9 @@ export class ProductsService {
       where: whereSearch,
       order,
     });
+  }
+
+  delete(productId: number): Promise<DeleteResult> {
+    return this.productsRepository.delete({ id: productId });
   }
 }

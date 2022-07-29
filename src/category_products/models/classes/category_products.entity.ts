@@ -5,11 +5,15 @@ import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('category_products')
 export class CategoryProducts extends BaseEntity {
-  @ManyToOne(() => Category, (category) => category.categoryProducts)
+  @ManyToOne(() => Category, (category) => category.categoryProducts, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @ManyToOne(() => Product, (product) => product.categoryProducts)
+  @ManyToOne(() => Product, (product) => product.categoryProducts, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'product_id' })
   product: Product;
 }
