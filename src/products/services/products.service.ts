@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ProductsFilter } from '@products/models/dtos/products.filter';
+import { ILike, In, Repository } from 'typeorm';
 import { Product } from '@product/product.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
@@ -10,7 +11,32 @@ export class ProductsService {
     private productsRepository: Repository<Product>,
   ) {}
 
-  findAll(): Promise<Product[]> {
-    return this.productsRepository.find({ take: 20 });
+  findAll({
+    size,
+    page,
+    categories,
+    search,
+    order,
+  }: ProductsFilter): Promise<Product[]> {
+    const categoriesSearch = categories && {
+      categoryProducts: {
+        category: {
+          id: In(categories),
+        },
+      },
+    };
+    const whereSearch = search
+      ? ['name', 'description'].map((key) => ({
+          [key]: ILike(`%${search}%`),
+          ...categoriesSearch,
+        }))
+      : { ...categoriesSearch };
+
+    return this.productsRepository.find({
+      take: size,
+      skip: (page - 1) * size,
+      where: whereSearch,
+      order,
+    });
   }
 }
