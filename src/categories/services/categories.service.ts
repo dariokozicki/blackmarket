@@ -1,4 +1,4 @@
-import { Category } from '@categories/models/classes/category.entity';
+import { Category } from '@category/category.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

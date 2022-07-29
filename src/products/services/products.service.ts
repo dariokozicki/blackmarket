@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from '@products/models/classes/product.entity';
 import { ProductsFilter } from '@products/models/dtos/products.filter';
 import { DeleteResult, ILike, In, Repository } from 'typeorm';
+import { Product } from '@product/product.entity';
 
 @Injectable()
 export class ProductsService {
