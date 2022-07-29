@@ -1,4 +1,4 @@
-import { Category } from '@categories/models/classes/category.entity';
+import { Category } from '@category/category.entity';
 import { CategoriesService } from '@categories/services/categories.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';

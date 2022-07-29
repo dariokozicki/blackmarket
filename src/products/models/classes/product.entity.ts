@@ -1,6 +1,6 @@
-import { BaseEntity } from '@base/models/classes/BaseEntity.entity';
-import { CategoryProducts } from '@category_products/models/classes/category_products.entity';
-import { Column, Entity, JoinTable, OneToMany } from 'typeorm';
+import { BaseEntity } from '@base/mc/BaseEntity.entity';
+import { CategoryProducts } from '@category_products/mc/category_products.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('products')
 export class Product extends BaseEntity {
@@ -24,9 +24,6 @@ export class Product extends BaseEntity {
   @Column({ type: 'integer' })
   stock: number;
 
-  // @ManyToMany(() => Category) ANOTHER ENTITY INSTEAD OF MANY TO MANY
-  // @JoinTable({ name: 'category_products' })
-  // categories: Category[];
   @OneToMany(
     () => CategoryProducts,
     (categoryProducts) => categoryProducts.product,
