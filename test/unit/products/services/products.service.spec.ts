@@ -4,8 +4,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Product } from '@products/models/classes/product.entity';
 import { ProductsService } from '@products/services/products.service';
-import * as sinon from 'sinon';
-import { Repository } from 'typeorm';
 
 describe('Products Service', () => {
   let service: ProductsService;
@@ -28,11 +26,11 @@ describe('Products Service', () => {
     service = module.get<ProductsService>(ProductsService);
   });
 
-  it('ProductsService - should be defined', () => {
+  it('Should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('ProductsService - should return what repository returns', async () => {
+  it('Should return array of products if data sent is correct', async () => {
     const prod = new Product();
     prod.name = 'Lapicera';
     const categoryId = 3;
