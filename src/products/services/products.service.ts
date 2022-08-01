@@ -43,4 +43,17 @@ export class ProductsService {
   delete(productId: number): Promise<DeleteResult> {
     return this.productsRepository.delete({ id: productId });
   }
+
+  async create(product: Product): Promise<Product> {
+    const createdProduct = await this.productsRepository.save(product);
+
+    return createdProduct;
+  }
+
+  findById(productId: number): Promise<Product> {
+    return this.productsRepository.findOne({
+      where: { id: productId },
+      relations: ['categoryProducts', 'categoryProducts.category'],
+    });
+  }
 }

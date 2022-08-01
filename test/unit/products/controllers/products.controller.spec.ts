@@ -4,6 +4,7 @@ import { ProductsService } from '@products/services/products.service';
 import { DeleteResult } from 'typeorm';
 import { HttpException } from '@nestjs/common';
 import { Product } from '@product/product.entity';
+import { ProductDTO } from '@products/models/dtos/product.dto';
 
 describe('ProductsController', () => {
   let productsController: ProductsController;
@@ -18,6 +19,8 @@ describe('ProductsController', () => {
           useFactory: () => ({
             findAll: jest.fn(() => []),
             delete: jest.fn(() => {}),
+            findById: jest.fn(() => {}),
+            create: jest.fn(() => {}),
           }),
         },
       ],
@@ -36,6 +39,27 @@ describe('ProductsController', () => {
       expect(await productsController.findAll({ page: 1, size: 30 })).toBe(
         products,
       );
+    });
+
+    it('Should return individual product when id is given', async () => {
+      const product = new Product();
+      const id = 3;
+      product.name = 'Chair';
+      product.id = id;
+      jest
+        .spyOn(productsService, 'findById')
+        .mockImplementation(async () => product);
+      expect(await productsController.findById(id)).toBe(product);
+    });
+
+    it('Should return 404 when no product is found', async () => {
+      const prodId = 1;
+      const res = null;
+      jest.spyOn(productsService, 'delete').mockImplementation(async () => res);
+
+      expect(
+        async () => await productsController.findById(prodId),
+      ).rejects.toThrow(HttpException);
     });
   });
 
@@ -63,6 +87,25 @@ describe('ProductsController', () => {
 
       productsController.delete(prodId);
       expect(productsService.delete).toHaveBeenCalled();
+    });
+  });
+
+  describe('CREATE /products', () => {
+    it('Should create a product when given the correct body', async () => {
+      const product = new ProductDTO();
+
+      product.name = 'Mi Producto';
+      product.description = 'Heyyy';
+      product.price = 50;
+      product.rating = 5;
+      product.status = 10;
+      product.stock = 35;
+      product.categories = [];
+      jest
+        .spyOn(productsService, 'create')
+        .mockImplementation(async () => product.toProduct());
+      const res = await productsController.create(product);
+      expect(res.name).toBe(product.name);
     });
   });
 });

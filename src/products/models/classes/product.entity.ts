@@ -27,6 +27,7 @@ export class Product extends BaseEntity {
   @OneToMany(
     () => CategoryProducts,
     (categoryProducts) => categoryProducts.product,
+    { cascade: ['insert', 'update'] },
   )
   categoryProducts: CategoryProducts[];
 }
