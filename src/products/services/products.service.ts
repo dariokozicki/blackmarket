@@ -44,10 +44,8 @@ export class ProductsService {
     return this.productsRepository.delete({ id: productId });
   }
 
-  async create(product: Product): Promise<Product> {
-    const createdProduct = await this.productsRepository.save(product);
-
-    return createdProduct;
+  create(product: Product): Promise<Product> {
+    return this.productsRepository.save(product);
   }
 
   findById(productId: number): Promise<Product> {

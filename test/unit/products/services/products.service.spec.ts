@@ -9,10 +9,14 @@ describe('Products Service', () => {
   let service: ProductsService;
   let find: jest.Mock;
   let del: jest.Mock;
+  let save: jest.Mock;
+  let findOne: jest.Mock;
 
   beforeEach(async () => {
     find = jest.fn();
     del = jest.fn();
+    save = jest.fn();
+    findOne = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProductsService,
@@ -21,6 +25,8 @@ describe('Products Service', () => {
           useValue: {
             find,
             delete: del,
+            save,
+            findOne,
           },
         },
       ],
@@ -60,6 +66,26 @@ describe('Products Service', () => {
     });
   });
 
+  describe('Find by id', () => {
+    it('Returns the product that matches id', async () => {
+      const product = new Product();
+      product.id = 1;
+      product.name = 'Mi Producto';
+      product.description = 'Heyyy';
+      product.price = 50;
+      product.rating = 5;
+      product.status = 10;
+      product.stock = 35;
+      const catProd = new CategoryProducts();
+      catProd.category = new Category();
+      catProd.product = product;
+      product.categoryProducts = [catProd];
+      findOne.mockImplementation(async () => product);
+      const res = await service.findById(1);
+      expect(res.id).toBe(product.id);
+    });
+  });
+
   describe('Delete', () => {
     it('Should call repository.delete with productId', async () => {
       const prodId = 1;
@@ -68,6 +94,29 @@ describe('Products Service', () => {
       const { affected } = await service.delete(1);
       expect(affected).toBe(aff);
       expect(del).toHaveBeenCalledWith({ id: prodId });
+    });
+  });
+
+  describe('Create', () => {
+    it('Should return the product that was saved in the repository', async () => {
+      const product = new Product();
+
+      product.name = 'Mi Producto';
+      product.description = 'Heyyy';
+      product.price = 50;
+      product.rating = 5;
+      product.status = 10;
+      product.stock = 35;
+      const catProd = new CategoryProducts();
+      catProd.category = new Category();
+      catProd.product = product;
+      product.categoryProducts = [catProd];
+      save.mockImplementation(async (prod: Product) => {
+        prod.id = 1;
+        return prod;
+      });
+      const res = await service.create(product);
+      expect(res.id).toBe(1);
     });
   });
 });

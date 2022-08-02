@@ -100,7 +100,7 @@ describe('ProductsController', () => {
       product.rating = 5;
       product.status = 10;
       product.stock = 35;
-      product.categories = [];
+      product.categories = [123, 456];
       jest
         .spyOn(productsService, 'create')
         .mockImplementation(async () => product.toProduct());
