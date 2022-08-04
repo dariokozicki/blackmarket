@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { Product } from '@product/product.entity';
@@ -45,5 +46,13 @@ export class ProductsController {
   @Post()
   create(@Body() productDTO: ProductDTO) {
     return this.productsService.create(productDTO.toProduct());
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() productDTO: ProductDTO,
+  ) {
+    return this.productsService.update(id, productDTO.toProduct());
   }
 }

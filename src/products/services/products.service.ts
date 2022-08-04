@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsFilter } from '@products/models/dtos/products.filter';
-import { DeleteResult, ILike, In, Repository } from 'typeorm';
+import { DeleteResult, ILike, In, Repository, UpdateResult } from 'typeorm';
 import { Product } from '@product/product.entity';
 
 @Injectable()
@@ -45,6 +45,11 @@ export class ProductsService {
   }
 
   create(product: Product): Promise<Product> {
+    return this.productsRepository.save(product);
+  }
+
+  update(id: number, product: Product) {
+    product.id = id;
     return this.productsRepository.save(product);
   }
 
