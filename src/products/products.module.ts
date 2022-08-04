@@ -2,11 +2,31 @@ import { Module } from '@nestjs/common';
 import { ProductsService } from './services/products.service';
 import { ProductsController } from './controllers/products.controller';
 import { Product } from './models/classes/product.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import {
+  getDataSourceToken,
+  getRepositoryToken,
+  TypeOrmModule,
+} from '@nestjs/typeorm';
+import { ProductRepository } from './repositories/product.repository';
+import { DataSource, Repository } from 'typeorm';
 /* istanbul ignore file */
 @Module({
   imports: [TypeOrmModule.forFeature([Product])],
   controllers: [ProductsController],
-  providers: [ProductsService],
+  providers: [
+    {
+      provide: getRepositoryToken(Product),
+      inject: [getDataSourceToken()],
+      useFactory(dataSource: DataSource) {
+        // Override default repository for Product with a custom one
+        return new ProductRepository(
+          Product,
+          dataSource.createEntityManager(),
+          dataSource.createQueryRunner(),
+        );
+      },
+    },
+    ProductsService,
+  ],
 })
 export class ProductsModule {}
