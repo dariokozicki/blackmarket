@@ -7,7 +7,7 @@ import {
   getRepositoryToken,
   TypeOrmModule,
 } from '@nestjs/typeorm';
-import { ProductRepository } from './repositories/product.repository';
+import { ProductsRepository } from './repositories/products.repository';
 import { DataSource, Repository } from 'typeorm';
 /* istanbul ignore file */
 @Module({
@@ -19,7 +19,7 @@ import { DataSource, Repository } from 'typeorm';
       inject: [getDataSourceToken()],
       useFactory(dataSource: DataSource) {
         // Override default repository for Product with a custom one
-        return new ProductRepository(
+        return new ProductsRepository(
           Product,
           dataSource.createEntityManager(),
           dataSource.createQueryRunner(),
