@@ -40,7 +40,7 @@ describe('Products Service', () => {
     categoryProducts.category = new Category();
     categoryProducts.category.id = categoryId;
     prod.categoryProducts = [new CategoryProducts()];
-    find.mockReturnValueOnce(Promise.resolve([prod]));
+    findAll.mockReturnValueOnce(Promise.resolve([prod]));
     const [theProd] = await service.findAll({
       page: 1,
       size: 30,
@@ -49,7 +49,7 @@ describe('Products Service', () => {
     });
     expect(theProd.name).toBe(prod.name);
 
-    find.mockReturnValueOnce(Promise.resolve([prod]));
+    findAll.mockReturnValueOnce(Promise.resolve([prod]));
     const [secondProd] = await service.findAll({
       page: 1,
       size: 30,

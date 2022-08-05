@@ -13,7 +13,7 @@ describe('Products Repository', () => {
       const prod = new Product();
       prod.id = 3;
       jest.spyOn(repository, 'find').mockImplementationOnce(async () => [prod]);
-      const products = await repository.findAll();
+      const products = await repository.findAll({});
       expect(products[0].id).toBe(prod.id);
     });
   });
