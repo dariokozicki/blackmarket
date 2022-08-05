@@ -6,9 +6,10 @@ import { ProductsService } from '@products/services/products.service';
 describe('Products Service', () => {
   let service: ProductsService;
   let find: jest.Mock;
-
+  let findAll: jest.Mock;
   beforeEach(async () => {
     find = jest.fn();
+    findAll = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProductsService,
@@ -16,6 +17,7 @@ describe('Products Service', () => {
           provide: getRepositoryToken(Product),
           useValue: {
             find,
+            findAll,
           },
         },
       ],
@@ -31,7 +33,7 @@ describe('Products Service', () => {
   it('ProductsService - should return what repository returns', async () => {
     const prod = new Product();
     prod.name = 'Lapicera';
-    find.mockReturnValueOnce(Promise.resolve([prod]));
+    findAll.mockReturnValueOnce(Promise.resolve([prod]));
     const [theProd] = await service.findAll();
     expect(theProd.name).toBe(prod.name);
   });
