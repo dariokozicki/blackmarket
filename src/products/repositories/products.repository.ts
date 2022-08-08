@@ -4,11 +4,13 @@ import { ILike, In, Repository } from 'typeorm';
 
 export class ProductsRepository extends Repository<Product> {
   findAll(
-    { size, page, categories, search, order }: ProductsFilter = {
-      size: 30,
-      page: 1,
-      categories: [],
-    },
+    {
+      size,
+      page,
+      categories,
+      search,
+      order,
+    }: ProductsFilter = new ProductsFilter(),
   ): Promise<Product[]> {
     const categoriesSearch = categories && {
       categoryProducts: {
