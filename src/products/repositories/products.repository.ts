@@ -3,13 +3,13 @@ import { ProductsFilter } from '@products/models/dtos/products.filter';
 import { ILike, In, Repository } from 'typeorm';
 
 export class ProductsRepository extends Repository<Product> {
-  findAll({
-    size,
-    page,
-    categories,
-    search,
-    order,
-  }: ProductsFilter): Promise<Product[]> {
+  findAll(
+    { size, page, categories, search, order }: ProductsFilter = {
+      size: 30,
+      page: 1,
+      categories: [],
+    },
+  ): Promise<Product[]> {
     const categoriesSearch = categories && {
       categoryProducts: {
         category: {
