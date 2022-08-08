@@ -12,9 +12,17 @@ describe('Products Repository', () => {
     it('Should return the categories when called with no arguments', async () => {
       const prod = new Product();
       prod.id = 3;
-      jest.spyOn(repository, 'find').mockImplementationOnce(async () => [prod]);
+      const spy = jest
+        .spyOn(repository, 'find')
+        .mockImplementationOnce(async () => [prod]);
       const products = await repository.findAll();
       expect(products[0].id).toBe(prod.id);
+      expect(spy).toHaveBeenCalledWith({
+        take: 30,
+        skip: 0,
+        where: {},
+        order: undefined,
+      });
     });
 
     it('Should return the categories when called with all arguments', async () => {
