@@ -1,4 +1,4 @@
-import { Category } from '@category/category.entity';
+import { Category } from '@class_categories/category.entity';
 import { CategoriesService } from '@categories/services/categories.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -6,9 +6,11 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 describe('Categories Service', () => {
   let service: CategoriesService;
   let find: jest.Mock;
+  let findAll: jest.Mock;
 
   beforeEach(async () => {
     find = jest.fn();
+    findAll = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CategoriesService,
@@ -16,6 +18,7 @@ describe('Categories Service', () => {
           provide: getRepositoryToken(Category),
           useValue: {
             find,
+            findAll,
           },
         },
       ],
@@ -31,7 +34,7 @@ describe('Categories Service', () => {
   it('CategoriesService - should return what repository returns', async () => {
     const cat = new Category();
     cat.name = 'Motos';
-    find.mockReturnValueOnce(Promise.resolve([cat]));
+    findAll.mockReturnValueOnce(Promise.resolve([cat]));
     const [theCat] = await service.findAll();
     expect(theCat.name).toBe(cat.name);
   });
