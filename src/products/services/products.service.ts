@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsFilter } from '@products/models/dtos/products.filter';
 import { DeleteResult, ILike, In, Repository } from 'typeorm';
-import { Product } from '@product/product.entity';
 import { ProductsRepository } from '@products/repositories/products.repository';
 
 @Injectable()
