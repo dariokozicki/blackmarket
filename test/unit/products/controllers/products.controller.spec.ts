@@ -103,7 +103,7 @@ describe('ProductsController', () => {
       product.categories = [123, 456];
       jest
         .spyOn(productsService, 'create')
-        .mockImplementation(async () => product.toProduct());
+        .mockImplementation(async () => new Product(product));
       const res = await productsController.create(product);
       expect(res.name).toBe(product.name);
     });
