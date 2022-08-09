@@ -1,6 +1,6 @@
 import { BaseEntity } from '@base/models/classes/BaseEntity.entity';
-import { Category } from '@category/category.entity';
-import { Product } from '@product/product.entity';
+import { Category } from '@class_categories/category.entity';
+import { Product } from '@class_products/product.entity';
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('category_products')
