@@ -19,8 +19,16 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@categories/*": ["src/categories/*"],
+      "@class_categories/*": ["src/categories/models/classes/*"],
       "@products/*": ["src/products/*"],
-      "@base/*": ["src/base/*"]
+      "@class_products/*": ["src/products/models/classes/*"],
+      "@class_base/*": ["src/base/models/classes/*"],
+      "@base/*": ["src/base/*"],
+      "@class_category_products/*": ["src/category_products/models/classes/*"],
+      "@category_products/*": ["src/category_products/*"],
+      "@users/*": ["src/users/*"],
+      "@roles/*": ["src/roles/*"],
+      "@/*": ["src/*"]
     }
   }
 }
