@@ -9,11 +9,41 @@ describe('Products Repository', () => {
   });
 
   describe('Find All', () => {
-    it('Should return the categories when called', async () => {
+    it('Should return the categories when called with no arguments', async () => {
+      const prod = new Product();
+      prod.id = 3;
+      const spy = jest
+        .spyOn(repository, 'find')
+        .mockImplementationOnce(async () => [prod]);
+      const products = await repository.findAll();
+      expect(products[0].id).toBe(prod.id);
+      expect(spy).toHaveBeenCalledWith({
+        take: 30,
+        skip: 0,
+        where: {},
+        order: undefined,
+      });
+    });
+
+    it('Should return the categories when called with all arguments', async () => {
       const prod = new Product();
       prod.id = 3;
       jest.spyOn(repository, 'find').mockImplementationOnce(async () => [prod]);
-      const products = await repository.findAll();
+      const products = await repository.findAll({
+        page: 1,
+        size: 30,
+        categories: [123, 456],
+        search: 'bike',
+        order: { id: 'desc' },
+      });
+      expect(products[0].id).toBe(prod.id);
+    });
+
+    it('Should return the categories when called with some arguments', async () => {
+      const prod = new Product();
+      prod.id = 3;
+      jest.spyOn(repository, 'find').mockImplementationOnce(async () => [prod]);
+      const products = await repository.findAll({ page: 1 });
       expect(products[0].id).toBe(prod.id);
     });
   });

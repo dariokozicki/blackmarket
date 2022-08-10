@@ -1,3 +1,5 @@
+import { Category } from '@categories/models/classes/category.entity';
+import { CategoryProducts } from '@category_products/models/classes/category_products.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Product } from '@class_products/product.entity';
@@ -33,8 +35,26 @@ describe('Products Service', () => {
   it('ProductsService - should return what repository returns', async () => {
     const prod = new Product();
     prod.name = 'Lapicera';
+    const categoryId = 3;
+    const categoryProducts = new CategoryProducts();
+    categoryProducts.category = new Category();
+    categoryProducts.category.id = categoryId;
+    prod.categoryProducts = [new CategoryProducts()];
     findAll.mockReturnValueOnce(Promise.resolve([prod]));
-    const [theProd] = await service.findAll();
+    const [theProd] = await service.findAll({
+      page: 1,
+      size: 30,
+      categories: [categoryId],
+      search: 'Lapi',
+    });
     expect(theProd.name).toBe(prod.name);
+
+    findAll.mockReturnValueOnce(Promise.resolve([prod]));
+    const [secondProd] = await service.findAll({
+      page: 1,
+      size: 30,
+      categories: [categoryId],
+    });
+    expect(secondProd.name).toBe(prod.name);
   });
 });

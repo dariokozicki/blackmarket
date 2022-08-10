@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Category } from '@class_categories/category.entity';
 import { Product } from '@class_products/product.entity';
 import { ProductsModule } from '@products/products.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from '@roles/roles.guard';
 import { CategoryProductsModule } from '@category_products/category_products.module';
 import { CategoryProducts } from '@class_category_products/category_products.entity';
 
@@ -32,6 +34,12 @@ import { CategoryProducts } from '@class_category_products/category_products.ent
     CategoryProductsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -30,7 +30,9 @@ describe('ProductsController', () => {
       jest
         .spyOn(productsService, 'findAll')
         .mockImplementation(async () => products);
-      expect(await productsController.findAll()).toBe(products);
+      expect(await productsController.findAll({ page: 1, size: 30 })).toBe(
+        products,
+      );
     });
   });
 });
