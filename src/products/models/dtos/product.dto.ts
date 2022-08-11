@@ -1,6 +1,4 @@
-import { CategoryProducts } from '@category_products/mc/category_products.entity';
 import { IsArray, IsInt, IsOptional, IsString } from 'class-validator';
-import { Product } from '../classes/product.entity';
 
 export class ProductDTO {
   @IsString()
