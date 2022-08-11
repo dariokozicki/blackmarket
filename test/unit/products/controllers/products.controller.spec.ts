@@ -21,6 +21,7 @@ describe('ProductsController', () => {
             delete: jest.fn(() => {}),
             findById: jest.fn(() => {}),
             create: jest.fn(() => {}),
+            update: jest.fn(),
           }),
         },
       ],
@@ -106,6 +107,30 @@ describe('ProductsController', () => {
         .mockImplementation(async () => new Product(product));
       const res = await productsController.create(product);
       expect(res.name).toBe(product.name);
+    });
+  });
+
+  describe('UPDATE /products/id', () => {
+    it('Should call the service update with id and product', async () => {
+      const product = new ProductDTO();
+
+      product.name = 'Mi Producto';
+      product.description = 'Heyyy';
+      product.price = 50;
+      product.rating = 5;
+      product.status = 10;
+      product.stock = 35;
+      product.categories = [123, 456];
+      const id = 3;
+      jest
+        .spyOn(productsService, 'update')
+        .mockImplementation(async (id, prod: Product) => {
+          prod.id = id;
+          return prod;
+        });
+
+      const res = await productsController.update(id, product);
+      expect(res.id).toBe(id);
     });
   });
 });

@@ -24,6 +24,11 @@ export class ProductsService {
     return this.productsRepository.save(product);
   }
 
+  update(id: number, product: Product) {
+    product.id = id;
+    return this.productsRepository.save(product);
+  }
+
   findById(productId: number): Promise<Product> {
     return this.productsRepository.findOne({
       where: { id: productId },

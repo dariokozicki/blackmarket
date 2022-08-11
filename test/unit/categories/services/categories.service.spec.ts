@@ -34,7 +34,7 @@ describe('Categories Service', () => {
   it('CategoriesService - should return what repository returns', async () => {
     const cat = new Category();
     cat.name = 'Motos';
-    findAll.mockReturnValueOnce(Promise.resolve([cat]));
+    find.mockReturnValueOnce(Promise.resolve([cat]));
     const [theCat] = await service.findAll();
     expect(theCat.name).toBe(cat.name);
   });

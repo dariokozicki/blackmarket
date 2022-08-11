@@ -122,4 +122,27 @@ describe('Products Service', () => {
       expect(res.id).toBe(1);
     });
   });
+
+  describe('Update', () => {
+    it('Should update the product based on its id', async () => {
+      const product = new Product();
+      const id = 3;
+      product.name = 'Mi Producto';
+      product.description = 'Heyyy';
+      product.price = 50;
+      product.rating = 5;
+      product.status = 10;
+      product.stock = 35;
+      const catProd = new CategoryProducts();
+      catProd.category = new Category();
+      catProd.product = product;
+      product.categoryProducts = [catProd];
+      save.mockImplementation(async (prod: Product) => {
+        return prod;
+      });
+      const res = await service.update(id, product);
+      expect(save).toHaveBeenCalledTimes(1);
+      expect(res.id).toBe(id);
+    });
+  });
 });
