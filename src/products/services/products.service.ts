@@ -19,4 +19,15 @@ export class ProductsService {
   delete(productId: number): Promise<DeleteResult> {
     return this.productsRepository.delete({ id: productId });
   }
+
+  create(product: Product): Promise<Product> {
+    return this.productsRepository.save(product);
+  }
+
+  findById(productId: number): Promise<Product> {
+    return this.productsRepository.findOne({
+      where: { id: productId },
+      relations: ['categoryProducts', 'categoryProducts.category'],
+    });
+  }
 }

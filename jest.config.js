@@ -22,6 +22,7 @@ module.exports = {
     '!**/*.guard.ts',
     '!**/*.decorator.ts',
     '!**/*.filter.ts',
+    '!**/*.dto.ts',
   ],
   coverageDirectory: './test/coverage',
   testEnvironment: 'node',
