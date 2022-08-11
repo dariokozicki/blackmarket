@@ -1,43 +1,19 @@
+import { Product } from '@class_products/product.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsFilter } from '@products/models/dtos/products.filter';
-import { DeleteResult, ILike, In, Repository, UpdateResult } from 'typeorm';
-import { Product } from '@product/product.entity';
+import { ProductsRepository } from '@products/repositories/products.repository';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
-    private productsRepository: Repository<Product>,
+    private readonly productsRepository: ProductsRepository,
   ) {}
 
-  findAll({
-    size,
-    page,
-    categories,
-    search,
-    order,
-  }: ProductsFilter): Promise<Product[]> {
-    const categoriesSearch = categories && {
-      categoryProducts: {
-        category: {
-          id: In(categories),
-        },
-      },
-    };
-    const whereSearch = search
-      ? ['name', 'description'].map((key) => ({
-          [key]: ILike(`%${search}%`),
-          ...categoriesSearch,
-        }))
-      : { ...categoriesSearch };
-
-    return this.productsRepository.find({
-      take: size,
-      skip: (page - 1) * size,
-      where: whereSearch,
-      order,
-    });
+  findAll(productsFilter: ProductsFilter): Promise<Product[]> {
+    return this.productsRepository.findAll(productsFilter);
   }
 
   delete(productId: number): Promise<DeleteResult> {

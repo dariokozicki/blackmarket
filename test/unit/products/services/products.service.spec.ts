@@ -2,7 +2,7 @@ import { Category } from '@categories/models/classes/category.entity';
 import { CategoryProducts } from '@category_products/models/classes/category_products.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Product } from '@products/models/classes/product.entity';
+import { Product } from '@class_products/product.entity';
 import { ProductsService } from '@products/services/products.service';
 
 describe('Products Service', () => {
@@ -11,12 +11,14 @@ describe('Products Service', () => {
   let del: jest.Mock;
   let save: jest.Mock;
   let findOne: jest.Mock;
+  let findAll: jest.Mock;
 
   beforeEach(async () => {
     find = jest.fn();
     del = jest.fn();
     save = jest.fn();
     findOne = jest.fn();
+    findAll = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProductsService,
@@ -27,6 +29,7 @@ describe('Products Service', () => {
             delete: del,
             save,
             findOne,
+            findAll,
           },
         },
       ],
@@ -47,7 +50,7 @@ describe('Products Service', () => {
       categoryProducts.category = new Category();
       categoryProducts.category.id = categoryId;
       prod.categoryProducts = [new CategoryProducts()];
-      find.mockReturnValueOnce(Promise.resolve([prod]));
+      findAll.mockReturnValueOnce(Promise.resolve([prod]));
       const [theProd] = await service.findAll({
         page: 1,
         size: 30,
@@ -56,7 +59,7 @@ describe('Products Service', () => {
       });
       expect(theProd.name).toBe(prod.name);
 
-      find.mockReturnValueOnce(Promise.resolve([prod]));
+      findAll.mockReturnValueOnce(Promise.resolve([prod]));
       const [secondProd] = await service.findAll({
         page: 1,
         size: 30,
