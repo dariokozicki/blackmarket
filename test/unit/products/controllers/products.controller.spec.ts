@@ -3,7 +3,7 @@ import { ProductsController } from '@products/controllers/products.controller';
 import { ProductsService } from '@products/services/products.service';
 import { DeleteResult } from 'typeorm';
 import { HttpException } from '@nestjs/common';
-import { Product } from '@product/product.entity';
+import { Product } from '@class_products/product.entity';
 import { ProductDTO } from '@products/models/dtos/product.dto';
 
 describe('ProductsController', () => {

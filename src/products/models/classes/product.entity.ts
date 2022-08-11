@@ -1,5 +1,5 @@
-import { BaseEntity } from '@base/mc/BaseEntity.entity';
-import { CategoryProducts } from '@category_products/mc/category_products.entity';
+import { BaseEntity } from '@class_base/BaseEntity.entity';
+import { CategoryProducts } from '@class_category_products/category_products.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { ProductDTO } from '../dtos/product.dto';
 

@@ -1,4 +1,3 @@
-import { CategoryProducts } from '@category_products/mc/category_products.entity';
 import {
   Body,
   Controller,
@@ -10,7 +9,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { Product } from '@product/product.entity';
+import { Product } from '@class_products/product.entity';
 import { ProductDTO } from '@products/models/dtos/product.dto';
 import { ProductsFilter } from '@products/models/dtos/products.filter';
 import { ProductsService } from '@products/services/products.service';
